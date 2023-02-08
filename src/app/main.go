@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	r "go-demo/src/router"
 )
 
 func main() {
 	fmt.Println("Olá")
-	//router.ApiRouter()
+	r.ApiRouter()
 }

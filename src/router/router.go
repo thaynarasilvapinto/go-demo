@@ -1,10 +1,11 @@
 package router
 
-import "fmt"
+import (
+	"fmt"
+	ap "go-demo/src/api"
+)
 
 func ApiRouter() {
 	fmt.Println("Escrever")
-	// r := mux.NewRouter()
-	// r.HandleFunc("/hello", api.HelloWorld).Methods("GET")
-	// http.ListenAndServe(":8080", r)
+	ap.Teste()
 }
