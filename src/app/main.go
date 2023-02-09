@@ -1,13 +1,11 @@
 package main
 
 import (
-	r "go-demo/src/router"
+	config "go-demo/src/config"
+	router "go-demo/src/router"
 )
 
-type HelloResponse struct {
-	Message string `json:"message"`
-}
-
 func main() {
-	r.ApiRouter()
+	config.Configuration()
+	router.ApiRouter()
 }
