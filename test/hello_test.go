@@ -10,27 +10,35 @@ import (
 	api "go-demo/src/api"
 )
 
-func TestHelloWorld(t *testing.T) {
-
-	req, err := http.NewRequest("GET", "/hello", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	rr := httptest.NewRecorder()
-
+func setupTestEnv(t *testing.T) {
+	t.Cleanup(teardownTestEnv)
 	os.Setenv("name", "Thaynara")
-	api.HelloWorld(rr, req)
+}
+
+func teardownTestEnv() {
 	os.Unsetenv("name")
+}
 
-	expected := `{"message":"Hello world Thaynara!"}`
-	actual, err := ioutil.ReadAll(rr.Body)
+func TestHelloWorld(t *testing.T) {
+	t.Run("TestHelloWorld", func(t *testing.T) {
+		setupTestEnv(t)
 
-	if err != nil {
-		t.Fatal(err)
-	}
+		req, err := http.NewRequest("GET", "/hello", nil)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-	if string(actual) != expected {
-		t.Errorf("expected %s, got %s", expected, actual)
-	}
+		rr := httptest.NewRecorder()
+		api.HelloWorld(rr, req)
+
+		expected := `{"message":"Hello world Thaynara!"}`
+		actual, err := ioutil.ReadAll(rr.Body)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if string(actual) != expected {
+			t.Errorf("expected %s, got %s", expected, actual)
+		}
+	})
 }
